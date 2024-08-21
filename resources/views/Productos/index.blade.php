@@ -4,7 +4,7 @@
 
 @section('contenido')
 
-    @foreach ($producto as $producto)
+    @foreach ($productos as $producto)
        <div class="card bg-base-100 w-96 shadow-xl">
            <figure>
            <img
