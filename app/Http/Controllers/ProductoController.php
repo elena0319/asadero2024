@@ -29,10 +29,21 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        Producto::create($request->all());
-        return redirect()->route('productos.index');
+        $producto = new Producto();
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio = $request->precio;
+        $producto->stock = $request->stock;
+
+        if ($request->hasFile('imagen')) {
+        $ruta = $request->file('imagen')->store('productos', 'public');
+        $producto->imagen = $ruta;
     }
 
+    $producto->save();
+
+    return redirect()->route('productos.index')->with('success', 'Producto creado con éxito');
+    }
     /**
      * Display the specified resource.
      */
@@ -54,8 +65,19 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        $producto->update($request->all());
-        return redirect()->route('productos.index');
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio = $request->precio;
+        $producto->stock = $request->stock;
+
+        if ($request->hasFile('imagen')) {
+        $ruta = $request->file('imagen')->store('productos', 'public');
+        $producto->imagen = $ruta;
+    }
+
+    $producto->save();
+
+    return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito');
     }
 
     /**

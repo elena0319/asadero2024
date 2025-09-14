@@ -12,9 +12,13 @@
     @foreach ($productos as $producto)
         <div class="card bg-base-100 w-96 shadow-xl m-8">
             <figure>
-            <img
-                src="https://picsum.photos/id/{{ $producto->id }}/240"
-                alt="{{ $producto->nombre }}" />
+            @if($producto->imagen)
+                <img
+                src="{{ asset('storage/' . $producto->imagen) }}"
+                alt="{{ $producto->nombre }}"
+                class="mx-auto w-48 h-36 object-cover rounded-lg shadow-sm"
+                />
+            @endif
             </figure>
             <div class="card-body">
             <h2 class="card-title">{{ $producto->nombre }}</h2>

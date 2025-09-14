@@ -1,18 +1,24 @@
 @extends('layouts.app')
-@section('titulo','Dashboard')
-@section('cabecera', 'Dashboard')
-@section('contenido')
-  <div class="py-6">
-    <div class="max-w-7xl mx-auto sm:px-2 lg:px-4">
-      <div class="hero min-h-screen bg-base-200 rounded-2xl">
-        <div class="hero-content text-center">
-         <div class="max-w-md">
-           <h1 class="text-5xl font-bold">Hola {{ auth()->user()->name }}</h1>
-           <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-           <a href="{{ route('productos.index') }}" class="btn btn-primary">Consultar productos</a>
-         </div>
-        </div>
-       </div>
+
+@section('content')
+<div class="container">
+    <h1>Bienvenido a la Tienda Leah Tech</h1>
+
+    <div class="row">
+        @foreach($productos as $producto)
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>{{ $producto->nombre }}</h5>
+                        <p>${{ number_format($producto->precio, 0) }}</p>
+                        <form action="{{ route('carrito.add', $producto->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
-  </div>
+</div>
 @endsection

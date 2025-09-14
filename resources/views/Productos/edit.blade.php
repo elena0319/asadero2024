@@ -6,7 +6,7 @@
 @section('contenido')
     <div class="flex justify-center my-6">
         <div class="card bg-base-100 w-96 shadow-2xl">
-            <form class="card-body" action="{{ route('productos.update', $producto->id) }}" method="POST">
+            <form class="card-body" action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 {{-- Nombre --}}
@@ -36,6 +36,20 @@
                     <span class="label-text">Stock</span>
                     </label>
                     <input type="number" name="stock" value="{{ $producto->stock }}" placeholder="Stock" class="input input-bordered" required />
+                </div>
+                {{-- Imagen --}}
+                <div class="form-control">
+                    <label class="label">
+                    <span class="label-text">Cambiar imagen</span>
+                    </label>
+
+                 {{-- Mostrar imagen actual --}}
+                    @if($producto->imagen)
+                    <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="w-32 h-32 object-cover rounded mb-2">
+                    @endif
+
+                 {{-- Campo para subir nueva imagen --}}
+                    <input type="file" name="imagen" accept="image/*" class="file-input file-input-bordered">
                 </div>
                 {{-- Botones --}}
                 <div class="form-control mt-6">
